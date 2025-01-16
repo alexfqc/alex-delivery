@@ -1,0 +1,30 @@
+.notFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 48px;
+  width: 100vw;
+  height: 100vh;
+  background-color: #77B254;
+  box-sizing: border-box;
+
+  .text {
+    font-size: 32px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+}
+
+.homeLink {
+  font-weight: 700;
+  border: solid 2px #fff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #5B913B;
+  }
+}
