@@ -5,7 +5,7 @@
   padding-top: 48px;
   width: 100vw;
   height: 100vh;
-  background-color: #77B254;
+  background-color: #fff;
   box-sizing: border-box;
 
   .text {
@@ -17,14 +17,14 @@
 
 .homeLink {
   font-weight: 700;
-  border: solid 2px #fff;
+  border: solid 2px #000;
   border-radius: 4px;
   padding: 4px 8px;
   box-sizing: border-box;
-  color: #fff;
+  color: #000;
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #5B913B;
+    background-color: #A9C46C;
   }
 }

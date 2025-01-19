@@ -1,7 +1,7 @@
 .logoWrapper {
   width: 200px;
   height: 200px;
-  border: solid 3px #fff;
+  border: solid 3px #284516;
   border-radius: 50%;
   box-shadow: 0 0 32px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -10,4 +10,5 @@
   justify-content: center;
   font-size: 48px;
   background-color: #5B913B;
+  color: #17290c;
 }

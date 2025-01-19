@@ -8,9 +8,15 @@ const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
 });
 
-const Logo: React.FC = () => {
+const Logo = ({
+  customClass = "",
+}: {
+  customClass?: string;
+}): React.ReactNode => {
   return (
-    <div className={`${bebasNeue.className} ${styles.logoWrapper}`}>
+    <div
+      className={`${bebasNeue.className} ${styles.logoWrapper} ${customClass}`}
+    >
       <div>Alex</div>
       <div>Delivery</div>
     </div>
