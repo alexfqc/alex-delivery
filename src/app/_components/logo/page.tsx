@@ -17,8 +17,8 @@ const Logo = ({
     <div
       className={`${bebasNeue.className} ${styles.logoWrapper} ${customClass}`}
     >
-      <div>Alex</div>
-      <div>Delivery</div>
+      <div className={styles.text}>Alex</div>
+      <div className={styles.text}>Delivery</div>
     </div>
   );
 };

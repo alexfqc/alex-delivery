@@ -11,4 +11,9 @@
   font-size: 48px;
   background-color: #5B913B;
   color: #17290c;
+  cursor: default;
+
+  .text {
+    user-select: none;
+  }
 }
