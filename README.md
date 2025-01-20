@@ -3,7 +3,7 @@
 Please make sure you have the version 22.11.0 or higher of [node](https://nodejs.org/en) installed in your computer.
 If you are using a mac or linux you can use nvm (there is a `.nvmrc` file at the project).
 
-You'll need to have [https://www.docker.com/](docker) installed in your machine to run the postgres image.
+You'll need to have [docker](https://www.docker.com/) installed in your machine to run the postgres image.
 
 First, install your node packages by running:
 
