@@ -12,6 +12,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  position: relative;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
