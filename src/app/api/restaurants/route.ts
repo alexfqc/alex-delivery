@@ -6,7 +6,7 @@ import prisma from "@/lib/db";
 
 export async function GET() {
   try {
-    const restaurants: TRestaurant[] = await prisma.restaurant.findMany({
+    const restaurants: Partial<TRestaurant>[] = await prisma.restaurant.findMany({
       select: {
         id: true,
         name: true,

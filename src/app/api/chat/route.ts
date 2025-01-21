@@ -5,6 +5,7 @@ import prisma from "@/lib/db";
 import { z } from 'zod';
 import { type TRestaurant } from "@/app/_types/restaurant";
 import { type TItem, type TFoodType } from "@/app/_types/item";
+import { type TOrder } from "@/app/_types/order";
 
 interface Message {
   role: 'user' | 'assistant';
@@ -83,6 +84,67 @@ export async function POST(req: NextRequest) {
           } catch (error) {
             console.log(error);
             return 'There are no menu items available at the moment';
+          }
+        },
+      },
+      placeOrder: {
+        description: 'place an order from selected restaurant',
+        parameters: z.object({
+          restaurant: z.object({
+            id: z.number(),
+            name: z.string(),
+          }),
+          orderItems: z.array(
+            z.object({
+              menuItemId: z.number(),
+              price: z.number(),
+              quantity: z.number()
+          })
+          ),
+        }),
+        execute: async ({ restaurant, orderItems }) => {
+          try {
+
+            
+            const user = await prisma.user.findFirst({
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true
+              }
+            });
+            
+            let totalAmount = 0;
+            
+            if (user) {
+              for(let i = 0; i < orderItems.length; i++) {
+                const { price, quantity } = orderItems[i];
+                totalAmount+= price * quantity;
+              }
+              
+              const createdOrder: TOrder = await prisma.order.create({
+                data: {
+                  userId: user.id,
+                  restaurantId: restaurant.id,
+                  status: 'created',
+                  totalAmount,
+                  orderItems: {
+                    createMany: {
+                      data: orderItems
+                    }
+                  }
+                }
+              });
+
+              return `Your order id is #${createdOrder.id} and the total is ${totalAmount}`;
+            }
+            
+
+            return 'There was a problem on ondering your items';
+            
+          } catch (error) {
+            console.log(error)
+            return 'There was a problem on ordering your items';
           }
         },
       },

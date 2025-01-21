@@ -8,5 +8,5 @@ export type TRestaurant = {
   state?: string | null;
   zip?: string | null;
   phone?: string | null;
-  isDeleted?: boolean | null;
+  isDeleted?: boolean;
 };

@@ -4,7 +4,7 @@ export type TFoodType = {
   createdAt: Date;
   updatedAt: Date;
   menuItems?: TItem[];
-  isDeleted?: boolean;
+  isDeleted: boolean;
 }
 
 export type TItem = {
@@ -17,5 +17,5 @@ export type TItem = {
   createdAt: Date;
   updatedAt: Date;
   foodTypes?: TFoodType[];
-  isDeleted?: boolean;
+  isDeleted: boolean;
 }
