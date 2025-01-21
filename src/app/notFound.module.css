@@ -5,7 +5,7 @@
   padding-top: 48px;
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
+  background-color: #a9df88;
   box-sizing: border-box;
 
   .text {
@@ -25,6 +25,6 @@
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #A9C46C;
+    background-color: #82b663;
   }
 }

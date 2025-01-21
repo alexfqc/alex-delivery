@@ -6,7 +6,7 @@ import Link from "next/link";
 const NotFound: FC = () => (
   <div className={styles.notFoundWrapper}>
     <Logo />
-    <div className={styles.text}>Page not found</div>
+    <div className={styles.text}>Food not found</div>
     <Link href="/" className={styles.homeLink}>
       Go Home
     </Link>
