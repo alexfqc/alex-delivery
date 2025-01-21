@@ -1,8 +1,10 @@
 import { ToolInvocation, streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { NextRequest } from "next/server";
+import prisma from "@/lib/db";
 import { z } from 'zod';
 import { type TRestaurant } from "@/app/_types/restaurant";
+import { type TItem } from "@/app/_types/item";
 
 interface Message {
   role: 'user' | 'assistant';
@@ -31,6 +33,41 @@ export async function POST(req: NextRequest) {
           } catch (error) {
             console.log(error)
             return 'There are no restaurants available at the moment';
+          }
+        },
+      },
+      getMenuItems: {
+        description: 'what are the available menu items',
+        parameters: z.object({
+          restaurant: z.object({
+            id: z.number(),
+            name: z.string(),
+          }),
+        }),
+        execute: async ({ restaurant }) => {
+          try {
+            if (!restaurant) {
+              return 'There are no menu items available at the moment';
+            }
+
+            const items: Partial<TItem>[] = await prisma.menuItem.findMany({
+              where: {
+                restaurantId: restaurant.id,
+              }, 
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                foodTypes: true,
+              }
+            });
+
+            const itemsName = items.map((item: Partial<TItem>) => `${item.name} for ${item.price}`);
+
+            return `The menu items are ${itemsName.join(', ')}`;
+          } catch (error) {
+            console.log(error);
+            return 'There are no menu items available at the moment';
           }
         },
       },
