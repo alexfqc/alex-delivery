@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Message, useChat } from "ai/react";
 import styles from "./chat.module.css";
 
 const Chat = () => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const messageContainerRef = useRef<HTMLDivElement>(null);
   const { messages, input, setInput, append, isLoading } = useChat({
     maxSteps: 5,
     onFinish(message, options) {
@@ -25,6 +26,14 @@ const Chat = () => {
       }
     },
   });
+
+  useEffect(() => {
+    // Scroll to the bottom of the chat
+    messageContainerRef.current?.scrollTo({
+      top: messageContainerRef.current?.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages]);
 
   const runChatCommand = async () => {
     append({ content: input, role: "user" });
@@ -65,7 +74,7 @@ const Chat = () => {
           </button>
         </div>
 
-        <div className={styles.chatContentOverflow}>
+        <div className={styles.chatContentOverflow} ref={messageContainerRef}>
           {messages.length ? (
             <div
               className={styles.chatContentWrapper}
