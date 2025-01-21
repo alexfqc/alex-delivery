@@ -12,5 +12,22 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+
+    .appWelcomeMessage {
+      font-size: 2rem;
+      color: #284516;
+    }
+
+    .appDescriptionText {
+      border: solid 2px #284516;
+      border-radius: 0.4rem;
+      padding: 1rem;
+      background-color: #9bcc7e;
+      margin-top: 2rem;
+      width: 300px;
+      text-align: center;
+    }
   }
 }
