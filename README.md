@@ -10,6 +10,7 @@ Now you'll need to create a file named `.env` at the root folder of the project 
 ```bash
 OPENAI_API_KEY=YOUR_KEY_FROM_OPENAI_WEBSITE
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/alexdelivery
+BASE_URL=http://localhost:3000
 ```
 
 These variables are available at `.sample.env` file.
