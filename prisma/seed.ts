@@ -4,6 +4,14 @@ import { Prisma, PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main () {
+  await prisma.user.create({
+    data: {
+      firstName: "John",
+      lastName: "Wick",
+      email: "john@wick.com",
+    }
+  });
+  
   const foodTypes: Prisma.FoodTypeCreateInput[] = [
     {
       name: "Burger",
