@@ -37,7 +37,7 @@ async function main () {
     });
   });
 
-  const restaurant = await prisma.restaurant.create({
+  const restaurant: Prisma.RestaurantCreateInput & { id: number } = await prisma.restaurant.create({
     data: {
       name: "McDonald's",
       description: "McDonald's Corporation, doing business as McDonald's, is an American multinational fast food chain, founded in 1940 as a restaurant operated by Richard and Maurice McDonald, in San Bernardino, California, United States.",
