@@ -88,7 +88,7 @@ const Chat = () => {
                       style={
                         message.role !== "user"
                           ? { backgroundColor: "#3e5f20" }
-                          : {}
+                          : { backgroundColor: "#87af63" }
                       }
                     >
                       {message.role === "user" ? "You" : "Alex"}
