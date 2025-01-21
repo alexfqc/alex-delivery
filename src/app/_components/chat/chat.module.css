@@ -178,4 +178,5 @@
 .chatContentOverflow {
   flex: 1;
   overflow-y: auto;
+  scrollbar-color: #8b9e81 #f5fbf1;
 }
