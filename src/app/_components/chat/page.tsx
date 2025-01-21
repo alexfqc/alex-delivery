@@ -8,6 +8,22 @@ const Chat = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const { messages, input, setInput, append, isLoading } = useChat({
     maxSteps: 5,
+    onFinish(message, options) {
+      if (message.content && options.finishReason === "stop") {
+        // Get the text from the element
+        const messageElement = document.getElementById(message.id);
+
+        if (messageElement) {
+          let text = messageElement.innerHTML;
+
+          // Replace **word** with <strong>word</strong>
+          text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+          // Update the innerHTML with the formatted text
+          messageElement.innerHTML = text;
+        }
+      }
+    },
   });
 
   const runChatCommand = async () => {
@@ -55,9 +71,9 @@ const Chat = () => {
               className={styles.chatContentWrapper}
               style={!isExpanded ? { display: "none" } : {}}
             >
-              {messages.map((message: Message, index: number) =>
+              {messages.map((message: Message) =>
                 message.content ? (
-                  <div key={index} className={styles.messageWrapper}>
+                  <div key={message.id} className={styles.messageWrapper}>
                     <div
                       className={styles.messageRole}
                       style={
@@ -70,6 +86,7 @@ const Chat = () => {
                     </div>
                     <div
                       className={styles.messageContent}
+                      id={message.id}
                     >{`${message.content}`}</div>
                   </div>
                 ) : null

@@ -29,6 +29,9 @@ export async function POST(req: NextRequest) {
 
             const restaurants: TRestaurant[] = await response.json();
 
+            if (!restaurants.length) {
+              return 'There are no restaurants available at the moment';
+            }
             return `The restaurants available are: ${restaurants.map((restaurant: TRestaurant) => restaurant.name).join(', ')}. Which restaurant would you like to order from?`;
           } catch (error) {
             console.log(error)
