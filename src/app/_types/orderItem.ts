@@ -8,3 +8,9 @@ export type TOrderItem = {
   updatedAt: Date;
   isDeleted: boolean;
 }
+
+export type TOrderTypeProp = {
+  menuItemId: number;
+  quantity: number;
+  price: number;
+}

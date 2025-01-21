@@ -6,6 +6,9 @@ import { z } from 'zod';
 import { type TRestaurant } from "@/app/_types/restaurant";
 import { type TItem, type TFoodType } from "@/app/_types/item";
 import { type TOrder } from "@/app/_types/order";
+import updateOrderItem from './updateOrderItem';
+import addOrderItem from './addOrderItem';
+import removeOrderItem from './removeOrderItem';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -148,6 +151,33 @@ export async function POST(req: NextRequest) {
           }
         },
       },
+      updateOrder: {
+        description: 'update quantity of items from an order already created',
+        parameters: z.object({
+          orderId: z.number(),
+          orderItems: z.array(
+            z.object({
+              menuItemId: z.number(),
+              name: z.string(),
+              quantity: z.number(),
+              price: z.number(),
+            }),
+          ),
+          operationType: z.enum(['create', 'update', 'remove'])
+        }),
+        execute: async ({ orderId, orderItems, operationType }) => {
+          if (operationType === 'update') {
+            const message = updateOrderItem({ orderId, orderItems });
+            return message;
+          } else if (operationType === 'create') {
+            const message = addOrderItem({ orderId, orderItems });
+            return message;
+          } else if (operationType === 'remove') {
+            const message = removeOrderItem({ orderId, orderItems });
+            return message;
+          }
+      } 
+      }
     }
   });
 
