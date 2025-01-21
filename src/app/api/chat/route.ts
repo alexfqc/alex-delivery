@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import prisma from "@/lib/db";
 import { z } from 'zod';
 import { type TRestaurant } from "@/app/_types/restaurant";
-import { type TItem } from "@/app/_types/item";
+import { type TItem, type TFoodType } from "@/app/_types/item";
 
 interface Message {
   role: 'user' | 'assistant';
@@ -43,16 +43,24 @@ export async function POST(req: NextRequest) {
             id: z.number(),
             name: z.string(),
           }),
+          foodTypeName: z.string().optional(),
         }),
-        execute: async ({ restaurant }) => {
+        execute: async ({ restaurant, foodTypeName }) => {
           try {
             if (!restaurant) {
               return 'There are no menu items available at the moment';
             }
 
+            const foodType: TFoodType | null =  foodTypeName ? await prisma.foodType.findFirst({
+              where: {
+                name: foodTypeName,
+              },
+            }) : null;
+
             const items: Partial<TItem>[] = await prisma.menuItem.findMany({
               where: {
                 restaurantId: restaurant.id,
+                ...(foodType ? { foodTypes: { some: { id: foodType.id } }} : {}),
               }, 
               select: {
                 id: true,
@@ -62,7 +70,11 @@ export async function POST(req: NextRequest) {
               }
             });
 
-            const itemsName = items.map((item: Partial<TItem>) => `${item.name} for ${item.price}`);
+            if (!items.length) {
+              return `There are no menu items available ${foodTypeName ? `for ${foodTypeName} `: ''}at the moment`;
+            }
+
+            const itemsName = items.map((item: Partial<TItem>) => `${item.name} for ${item.price} [${item.foodTypes?.map((foodType: TFoodType) => foodType.name).join(', ')}]`);
 
             return `The menu items are ${itemsName.join(', ')}`;
           } catch (error) {
